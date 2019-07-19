@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { simpleAction } from '../../store/actions/simpleAction'
 import { loginUser } from '../../store/actions/loginAction'
+import { Link } from 'react-router-dom'
 
 import {
   Collapse,
@@ -108,7 +109,7 @@ class Header extends Component {
     return (
       <div>
         <Navbar color="light" light expand="md">
-          <NavbarBrand href="/">reactstrap</NavbarBrand>
+          <Link to='/'>reactstrap</Link>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
@@ -127,7 +128,7 @@ class Header extends Component {
                   <NavLink onClick={this.toggleLoginModal}>Login</NavLink>
                 </NavItem>}
               {auth_token !== null ? <NavItem>
-                <NavLink className="new-account">{this.props.user ? this.props.user.user.first_name : <span>Error</span>}</NavLink>
+                <NavLink className="new-account">{this.props.user ? <Link to='/profile'>{this.props.user.user.first_name}</Link> : <span>Error</span>}</NavLink>
               </NavItem> : <NavItem>
                   <NavLink className="new-account">New Account</NavLink>
                 </NavItem>}

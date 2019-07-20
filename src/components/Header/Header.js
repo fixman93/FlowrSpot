@@ -146,7 +146,7 @@ class Header extends Component {
                 <NavLink onClick={this.toggleLoginModal}>Login</NavLink>
               </NavItem>}
               {auth_token !== null ? <NavItem>
-                <NavLink className="new-account">{this.props.user ? <span onClick={this.profileModal}> {this.props.user.user.first_name}</span> : <span>Error</span>}</NavLink>
+                <NavLink className="new-account">{this.props.user ? <span onClick={this.profileModal}> {this.props.user.user.first_name}</span> : <span>Name</span>}</NavLink>
               </NavItem> : <NavItem>
                   <NavLink className="new-account" onClick={this.registerModal}>New Account</NavLink>
                 </NavItem>}

@@ -1,0 +1,28 @@
+.container {
+  margin: auto;
+  max-width: 1140px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex .justify-content {
+  justify-content: space-between;
+}
+
+@media (max-width: 991px) {
+  .container {
+    padding-left: 38px;
+    padding-right: 38px;
+  }
+}
+
+@media (max-width: 576px) {
+  .container {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+}

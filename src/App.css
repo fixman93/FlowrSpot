@@ -34,6 +34,7 @@ main .navbar-light .navbar-nav .nav-link.new-account {
   padding: 154px 15px 169px;
   background-size: cover;
   background-position: center;
+  margin-bottom: 90px;
 }
 
 .search-hero h1 {
@@ -89,4 +90,69 @@ main .navbar-light .navbar-nav .nav-link.new-account {
   margin-right: 10px;
   box-shadow: none;
   outline: none;
+}
+
+.flower-item {
+  position: relative;
+  margin-bottom: 30px;
+}
+
+.flower-item img {
+  width: 100%;
+  height: 350px;
+  object-fit: cover;
+}
+
+.flower-info {
+  position: absolute;
+  bottom: 40px;
+  text-align: center;
+  width: calc(100% - 30px);
+  left: 15px;
+}
+
+.flower-info span {
+  border-radius: 20px;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  font-size: 12px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  text-align: center;
+  padding: 8.5px 22px;
+}
+
+.flower-info h2 {
+  font-size: 20px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 0.75;
+  letter-spacing: normal;
+  text-align: center;
+  color: white;
+}
+
+.flower-info h3 {
+  font-size: 12px;
+  font-weight: normal;
+  font-style: italic;
+  font-stretch: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  color: white;
+}
+
+.flower-item-info:before {
+  border-radius: 3px;
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.7));
+  content: "";
+  position: absolute;
+  width: calc(100% - 30px);
+  height: 100%;
+  top: 0;
+  left: 15px;
 }

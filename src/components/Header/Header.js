@@ -9,7 +9,6 @@ import {
   Collapse,
   Navbar,
   NavbarToggler,
-  NavbarBrand,
   Nav,
   NavItem,
   NavLink,
@@ -18,7 +17,7 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
-  Col, Row, Form, FormGroup, Label, Input, FormText
+  Col, Row, Form, FormGroup, Label, Input
 } from 'reactstrap'
 import './Header.css'
 
@@ -147,7 +146,7 @@ class Header extends Component {
                 <NavLink onClick={this.toggleLoginModal} className="loginBtn">Login</NavLink>
               </NavItem>}
               {auth_token !== null ? <NavItem>
-                <NavLink className="new-account">{this.props.user ? <span onClick={this.profileModal}> {this.props.user.user.first_name}</span> : <span>Name</span>}</NavLink>
+                <NavLink className="UserProfile">{this.props.user ? <span onClick={this.profileModal}> {this.props.user.user.first_name} <img src='https://via.placeholder.com/50' alt='User Image' /></span> : <span>Name <img src='https://via.placeholder.com/50' alt='User Image' /></span>}</NavLink>
               </NavItem> : <NavItem>
                   <NavLink className="new-account" onClick={this.registerModal}>New Account</NavLink>
                 </NavItem>}
@@ -158,12 +157,8 @@ class Header extends Component {
         <Modal isOpen={this.state.modal} toggle={this.toggleLoginModal} className={this.props.className}>
           <ModalHeader toggle={this.toggleLoginModal}>Welcome Back</ModalHeader>
           <ModalBody>
-            <form>
-              <input onChange={(e) => this.handleChange(e)} name='email' type="email" placeholder="email" />
-              <input onChange={(e) => this.handleChange(e)} name='password' type="password" placeholder="password" />
-              <button onClick={this.loginUser}>Login</button>
-            </form>
-            {/* <Form>
+
+            <Form>
               <FormGroup>
                 <Label for="emailAddress">Email</Label>
                 <Input onChange={(e) => this.handleChange(e)} name='email' type="email" id="emailAddress" placeholder="" />
@@ -172,7 +167,7 @@ class Header extends Component {
                 <Label for="PasswordLogin">Address 2</Label>
                 <Input onChange={(e) => this.handleChange(e)} name='password' type="password" id="PasswordLogin" placeholder="" />
               </FormGroup>
-            </Form> */}
+            </Form>
           </ModalBody>
           <ModalFooter>
             <Button color="primary" onClick={this.loginUser}>Do Something</Button>{' '}

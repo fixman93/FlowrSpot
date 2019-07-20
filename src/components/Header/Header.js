@@ -4,6 +4,7 @@ import { simpleAction } from '../../store/actions/simpleAction'
 import { loginUser } from '../../store/actions/loginAction'
 import { Link } from 'react-router-dom'
 
+import Logo from '../../assets/pl-logo.svg'
 import {
   Collapse,
   Navbar,
@@ -129,7 +130,7 @@ class Header extends Component {
     return (
       <div>
         <Navbar color="light" light expand="md">
-          <Link to='/'>reactstrap</Link>
+          <Link to='/'><img src={Logo} alt="Logo" /></Link>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
@@ -143,7 +144,7 @@ class Header extends Component {
                 <NavLink >Favorites</NavLink>
               </NavItem>
               {auth_token !== null ? null : <NavItem>
-                <NavLink onClick={this.toggleLoginModal}>Login</NavLink>
+                <NavLink onClick={this.toggleLoginModal} className="loginBtn">Login</NavLink>
               </NavItem>}
               {auth_token !== null ? <NavItem>
                 <NavLink className="new-account">{this.props.user ? <span onClick={this.profileModal}> {this.props.user.user.first_name}</span> : <span>Name</span>}</NavLink>

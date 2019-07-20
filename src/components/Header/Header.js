@@ -16,7 +16,8 @@ import {
   Modal,
   ModalHeader,
   ModalBody,
-  ModalFooter
+  ModalFooter,
+  Col, Row, Form, FormGroup, Label, Input, FormText
 } from 'reactstrap'
 import './Header.css'
 
@@ -43,7 +44,9 @@ class Header extends Component {
     this.state = {
       isOpen: false,
       modal: false,
+      profileModal: false,
       confirmModal: false,
+      registerModal: false,
       email: '',
       password: '',
       auth_token: ''
@@ -51,6 +54,8 @@ class Header extends Component {
     this.toggle = this.toggle.bind(this)
     this.toggleLoginModal = this.toggleLoginModal.bind(this)
     this.confirmModal = this.confirmModal.bind(this)
+    this.profileModal = this.profileModal.bind(this)
+    this.registerModal = this.registerModal.bind(this)
   }
   toggle() {
     this.setState({
@@ -70,6 +75,19 @@ class Header extends Component {
     }));
   }
 
+  profileModal() {
+    this.setState(prevState => ({
+      profileModal: !prevState.profileModal,
+      confirmModal: false
+    }));
+  }
+
+  registerModal() {
+    this.setState(prevState => ({
+      registerModal: !prevState.registerModal
+    }))
+  }
+
   handleChange = (e) => {
     e.preventDefault()
     this.setState({
@@ -77,10 +95,11 @@ class Header extends Component {
     })
   }
   loginUser = async (e) => {
+    console.log('dasdadsadsadsadsa', this.state)
     e.preventDefault()
-    await this.props.loginUser(this.state)
+    this.props.loginUser(this.state)
     let auth_token = null
-    if (await this.props.auth_token && this.props.auth_token.result) {
+    if (this.props.auth_token && this.props.auth_token.result) {
       auth_token = this.props.auth_token.result.auth_token
     }
     await console.log('local', auth_token)
@@ -97,9 +116,10 @@ class Header extends Component {
   logOut = () => {
     console.log('test')
     localStorage.removeItem("auth_token");
-    this.setState({
-      auth_token: null
-    })
+    this.setState(prevState => ({
+      auth_token: null,
+      profileModal: !prevState.profileModal
+    }));
   }
   render() {
     const { auth_token } = this.state
@@ -122,15 +142,13 @@ class Header extends Component {
               <NavItem>
                 <NavLink >Favorites</NavLink>
               </NavItem>
+              {auth_token !== null ? null : <NavItem>
+                <NavLink onClick={this.toggleLoginModal}>Login</NavLink>
+              </NavItem>}
               {auth_token !== null ? <NavItem>
-                <NavLink onClick={this.logOut}>Logout</NavLink>
+                <NavLink className="new-account">{this.props.user ? <span onClick={this.profileModal}> {this.props.user.user.first_name}</span> : <span>Name</span>}</NavLink>
               </NavItem> : <NavItem>
-                  <NavLink onClick={this.toggleLoginModal}>Login</NavLink>
-                </NavItem>}
-              {auth_token !== null ? <NavItem>
-                <NavLink className="new-account">{this.props.user ? <Link to='/profile'>{this.props.user.user.first_name}</Link> : <span>Error</span>}</NavLink>
-              </NavItem> : <NavItem>
-                  <NavLink className="new-account">New Account</NavLink>
+                  <NavLink className="new-account" onClick={this.registerModal}>New Account</NavLink>
                 </NavItem>}
 
             </Nav>
@@ -144,9 +162,19 @@ class Header extends Component {
               <input onChange={(e) => this.handleChange(e)} name='password' type="password" placeholder="password" />
               <button onClick={this.loginUser}>Login</button>
             </form>
+            {/* <Form>
+              <FormGroup>
+                <Label for="emailAddress">Email</Label>
+                <Input onChange={(e) => this.handleChange(e)} name='email' type="email" id="emailAddress" placeholder="" />
+              </FormGroup>
+              <FormGroup>
+                <Label for="PasswordLogin">Address 2</Label>
+                <Input onChange={(e) => this.handleChange(e)} name='password' type="password" id="PasswordLogin" placeholder="" />
+              </FormGroup>
+            </Form> */}
           </ModalBody>
           <ModalFooter>
-            <Button color="primary" onClick={this.toggleLoginModal}>Do Something</Button>{' '}
+            <Button color="primary" onClick={this.loginUser}>Do Something</Button>{' '}
             <Button color="secondary" onClick={this.toggleLoginModal}>Cancel</Button>
           </ModalFooter>
         </Modal>
@@ -154,11 +182,55 @@ class Header extends Component {
         <Modal isOpen={this.state.confirmModal} toggle={this.confirmModal} className={this.props.className}>
           <ModalHeader toggle={this.confirmModal}>Welcome Back</ModalHeader>
           <ModalBody>
-            Confirm
+            Congratulations! You have successfully logged into FlowrSpot!
           </ModalBody>
           <ModalFooter>
             <Button color="primary" onClick={this.confirmModal}>Ok</Button>{' '}
-            <Button color="secondary">Profile</Button>
+            <Button color="secondary" onClick={this.profileModal}>Profile</Button>
+          </ModalFooter>
+        </Modal>
+
+        <Modal isOpen={this.state.profileModal} toggle={this.profileModal} className={this.props.className}>
+          <ModalBody>
+            Profile Modal
+          </ModalBody>
+          <ModalFooter>
+
+            <Button color="secondary" onClick={this.logOut}>Logout</Button>
+          </ModalFooter>
+        </Modal>
+
+        <Modal isOpen={this.state.registerModal} toggle={this.registerModal} className={this.props.className}>
+          <ModalHeader toggle={this.registerModal}>Create an Account</ModalHeader>
+          <ModalBody>
+            <Form>
+              <Row form>
+                <Col md={6}>
+                  <FormGroup>
+                    <Label for="firstName">First Name</Label>
+                    <Input type="text" name="firstName" id="firstName" placeholder="" />
+                  </FormGroup>
+                </Col>
+                <Col md={6}>
+                  <FormGroup>
+                    <Label for="lastName">Last Name</Label>
+                    <Input type="text" name="lastName" id="lastName" placeholder="" />
+                  </FormGroup>
+                </Col>
+              </Row>
+              <FormGroup>
+                <Label for="emailAddress">Email</Label>
+                <Input type="email" name="emailRegister" id="emailAddress" placeholder="" />
+              </FormGroup>
+              <FormGroup>
+                <Label for="Password">Address 2</Label>
+                <Input type="password" name="passwordRegister" id="Password" placeholder="" />
+              </FormGroup>
+            </Form>
+          </ModalBody>
+          <ModalFooter>
+
+            <Button color="secondary">Create Account</Button>
           </ModalFooter>
         </Modal>
 

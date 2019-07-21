@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { simpleAction } from '../../store/actions/simpleAction'
 import { loginUser } from '../../store/actions/loginAction'
+import { registerUser } from '../../store/actions/registerAction'
 import { Link } from 'react-router-dom'
 
 import Logo from '../../assets/pl-logo.svg'
@@ -49,7 +50,12 @@ class Header extends Component {
       registerModal: false,
       email: '',
       password: '',
-      auth_token: ''
+      auth_token: '',
+      first_name: '',
+      last_name: '',
+      date_of_birth: '',
+      passwordRegister: '',
+      emailRegister: ''
     }
     this.toggle = this.toggle.bind(this)
     this.toggleLoginModal = this.toggleLoginModal.bind(this)
@@ -95,14 +101,12 @@ class Header extends Component {
     })
   }
   loginUser = async (e) => {
-    console.log('dasdadsadsadsadsa', this.state)
     e.preventDefault()
     this.props.loginUser(this.state)
     let auth_token = null
     if (this.props.auth_token && this.props.auth_token.result) {
       auth_token = this.props.auth_token.result.auth_token
     }
-    await console.log('local', auth_token)
     await this.setState({
       auth_token: auth_token
     })
@@ -114,17 +118,26 @@ class Header extends Component {
     }
   }
   logOut = () => {
-    console.log('test')
     localStorage.removeItem("auth_token");
     this.setState(prevState => ({
       auth_token: null,
       profileModal: !prevState.profileModal
     }));
   }
+
+  registerUser = (e) => {
+    e.preventDefault()
+    this.props.registerUser(this.state)
+    let auth_token_register = localStorage.getItem('auth_token_register')
+    if (auth_token_register) {
+      this.setState(prevState => ({
+        registerModal: !prevState.registerModal,
+        modal: !prevState.modal
+      }));
+    }
+  }
   render() {
     const { auth_token } = this.state
-    console.log('token', this.state.auth_token && this.state.auth_token.result ? this.state.auth_token.result.auth_token : null)
-    console.log('user', this.state)
 
     return (
       <div>
@@ -146,7 +159,7 @@ class Header extends Component {
                 <NavLink onClick={this.toggleLoginModal} className="loginBtn">Login</NavLink>
               </NavItem>}
               {auth_token !== null ? <NavItem>
-                <NavLink className="UserProfile">{this.props.user ? <span onClick={this.profileModal}> {this.props.user.user.first_name} <img src='https://via.placeholder.com/50' alt='User Image' /></span> : <span>Name <img src='https://via.placeholder.com/50' alt='User Image' /></span>}</NavLink>
+                <NavLink className="UserProfile">{this.props.user ? <span onClick={this.profileModal}> {this.props.user.user.first_name} <img src='https://via.placeholder.com/50' alt='User' /></span> : <span>Name <img src='https://via.placeholder.com/50' alt='User' /></span>}</NavLink>
               </NavItem> : <NavItem>
                   <NavLink className="new-account" onClick={this.registerModal}>New Account</NavLink>
                 </NavItem>}
@@ -204,29 +217,29 @@ class Header extends Component {
                 <Col md={6}>
                   <FormGroup>
                     <Label for="firstName">First Name</Label>
-                    <Input type="text" name="firstName" id="firstName" placeholder="" />
+                    <Input type="text" onChange={(e) => this.handleChange(e)} name="first_name" id="firstName" placeholder="" />
                   </FormGroup>
                 </Col>
                 <Col md={6}>
                   <FormGroup>
                     <Label for="lastName">Last Name</Label>
-                    <Input type="text" name="lastName" id="lastName" placeholder="" />
+                    <Input type="text" onChange={(e) => this.handleChange(e)} name="last_name" id="lastName" placeholder="" />
                   </FormGroup>
                 </Col>
               </Row>
               <FormGroup>
                 <Label for="emailAddress">Email</Label>
-                <Input type="email" name="emailRegister" id="emailAddress" placeholder="" />
+                <Input type="email" onChange={(e) => this.handleChange(e)} name="emailRegister" id="emailAddress" placeholder="" />
               </FormGroup>
               <FormGroup>
-                <Label for="Password">Address 2</Label>
-                <Input type="password" name="passwordRegister" id="Password" placeholder="" />
+                <Label for="Password">Password</Label>
+                <Input type="password" onChange={(e) => this.handleChange(e)} name="passwordRegister" id="Password" placeholder="" />
               </FormGroup>
             </Form>
           </ModalBody>
           <ModalFooter>
 
-            <Button color="secondary">Create Account</Button>
+            <Button color="secondary" onClick={this.registerUser}>Create Account</Button>
           </ModalFooter>
         </Modal>
 
@@ -243,6 +256,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   simpleAction: (token) => dispatch(simpleAction(token)),
-  loginUser: (data) => dispatch(loginUser(data))
+  loginUser: (data) => dispatch(loginUser(data)),
+  registerUser: (data) => dispatch(registerUser(data))
 })
 export default connect(mapStateToProps, mapDispatchToProps)(Header)

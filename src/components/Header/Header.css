@@ -1,0 +1,142 @@
+.profile-image {
+  display: flex;
+  align-items: center;
+  margin-bottom: 41px;
+}
+
+.profile-image img {
+  border-radius: 50%;
+  margin-right: 20px;
+}
+
+form.profile-modal label {
+  font-size: 10px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  color: #949ea0;
+}
+
+form.profile-modal input {
+  font-size: 18px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 0.72;
+  letter-spacing: normal;
+  color: #334144;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  padding: 10px 0;
+}
+
+form.profile-modal .form-group {
+  margin-bottom: 15px;
+}
+
+.profileModal .modal-content {
+  padding: 60px 111px 60px 111px;
+}
+
+.user-name {
+  font-size: 25px;
+  font-weight: 300;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  color: #334144;
+}
+
+button.btn.btn-secondary {
+  border-radius: 3px;
+  box-shadow: 0 15px 20px 0 rgba(234, 168, 159, 0.2);
+  background-image: linear-gradient(to left, #ecbcb3, #eaa79e);
+  border: none;
+  font-size: 14px;
+  font-weight: 500;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  text-align: center;
+  width: 150px;
+  height: 50px;
+}
+
+form.profile-modal {
+  margin-bottom: 61px;
+}
+
+.profile-modal .form-control:disabled {
+  background: transparent;
+}
+
+.loginModal .btn-secondary {
+  width: 100%;
+  display: block;
+  min-width: 100%;
+}
+
+.loginModal .form-group {
+  border-radius: 3px;
+  border: solid 1px #dfe5ea;
+  background-color: #f5f6f7;
+  padding: 0 15px;
+}
+
+.loginModal .form-group label {
+  font-size: 10px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  color: #949ea0;
+  margin: 0;
+}
+
+.loginModal .form-group input {
+  font-size: 13px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  color: #334144 !important;
+  background: transparent !important;
+  border: none;
+  padding: 9px 0;
+  box-shadow: none;
+  outline: none;
+  background-color: transparent !important;
+  height: auto;
+}
+
+.modal-content .modal-header {
+  text-align: center;
+  display: block;
+  border: none;
+}
+
+.modal-content .modal-header h5 {
+  font-size: 20px;
+  font-weight: 500;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  text-align: center;
+  color: #334144;
+}
+
+.loginModal .close {
+  display: none;
+}
+
+.successfully button.btn.btn-secondary {
+  margin-top: 15px;
+}

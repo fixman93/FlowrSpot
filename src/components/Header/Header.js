@@ -17,7 +17,6 @@ import {
   Modal,
   ModalHeader,
   ModalBody,
-  ModalFooter,
   Col, Row, Form, FormGroup, Label, Input
 } from 'reactstrap'
 import './Header.css'
@@ -138,7 +137,7 @@ class Header extends Component {
   }
   render() {
     const { auth_token } = this.state
-
+    console.log('user info', this.props.user)
     return (
       <div>
         <Navbar color="light" light expand="md">
@@ -167,7 +166,7 @@ class Header extends Component {
             </Nav>
           </Collapse>
         </Navbar>
-        <Modal isOpen={this.state.modal} toggle={this.toggleLoginModal} className={this.props.className}>
+        <Modal isOpen={this.state.modal} toggle={this.toggleLoginModal} className={this.props.className + ' loginModal'}>
           <ModalHeader toggle={this.toggleLoginModal}>Welcome Back</ModalHeader>
           <ModalBody>
 
@@ -181,35 +180,48 @@ class Header extends Component {
                 <Input onChange={(e) => this.handleChange(e)} name='password' type="password" id="PasswordLogin" placeholder="" />
               </FormGroup>
             </Form>
+            <Button color="secondary" onClick={this.loginUser}>Login to your Account</Button>{' '}
           </ModalBody>
-          <ModalFooter>
-            <Button color="primary" onClick={this.loginUser}>Do Something</Button>{' '}
+          {/* <ModalFooter>
+
             <Button color="secondary" onClick={this.toggleLoginModal}>Cancel</Button>
-          </ModalFooter>
+          </ModalFooter> */}
         </Modal>
 
-        <Modal isOpen={this.state.confirmModal} toggle={this.confirmModal} className={this.props.className}>
+        <Modal isOpen={this.state.confirmModal} toggle={this.confirmModal} className={this.props.className + ' loginModal successfully'}>
           <ModalHeader toggle={this.confirmModal}>Welcome Back</ModalHeader>
           <ModalBody>
             Congratulations! You have successfully logged into FlowrSpot!
-          </ModalBody>
-          <ModalFooter>
-            <Button color="primary" onClick={this.confirmModal}>Ok</Button>{' '}
+            <Button color="secondary" onClick={this.confirmModal}>Ok</Button>{' '}
             <Button color="secondary" onClick={this.profileModal}>Profile</Button>
-          </ModalFooter>
-        </Modal>
-
-        <Modal isOpen={this.state.profileModal} toggle={this.profileModal} className={this.props.className}>
-          <ModalBody>
-            Profile Modal
           </ModalBody>
-          <ModalFooter>
 
-            <Button color="secondary" onClick={this.logOut}>Logout</Button>
-          </ModalFooter>
         </Modal>
 
-        <Modal isOpen={this.state.registerModal} toggle={this.registerModal} className={this.props.className}>
+        <Modal isOpen={this.state.profileModal} toggle={this.profileModal} className={this.props.className + ' profileModal'}>
+          <ModalBody>
+            <div className="profile-image">
+              <img src="https://via.placeholder.com/50" alt="User" />
+              <div className="user-name">
+                {this.props.user ? this.props.user.user.first_name : null}
+              </div>
+            </div>
+            <Form className="profile-modal">
+              <FormGroup>
+                <Label for="exampleAddress">First Name</Label>
+                <Input type="text" name="first_name" id="exampleAddress" disabled placeholder="First Name" defaultValue={this.props.user ? this.props.user.user.first_name : ''} />
+              </FormGroup>
+              <FormGroup>
+                <Label for="exampleAddress2">Last Name</Label>
+                <Input type="text" name="last_name" id="exampleAddress2" disabled placeholder="Last Name" defaultValue={this.props.user ? this.props.user.user.last_name : ''} />
+              </FormGroup>
+
+            </Form>
+            <div className="text-center"><Button color="secondary" onClick={this.logOut}>Logout</Button></div>
+          </ModalBody>
+        </Modal>
+
+        <Modal isOpen={this.state.registerModal} toggle={this.registerModal} className={this.props.className + ' loginModal'}>
           <ModalHeader toggle={this.registerModal}>Create an Account</ModalHeader>
           <ModalBody>
             <Form>
@@ -236,11 +248,8 @@ class Header extends Component {
                 <Input type="password" onChange={(e) => this.handleChange(e)} name="passwordRegister" id="Password" placeholder="" />
               </FormGroup>
             </Form>
-          </ModalBody>
-          <ModalFooter>
-
             <Button color="secondary" onClick={this.registerUser}>Create Account</Button>
-          </ModalFooter>
+          </ModalBody>
         </Modal>
 
       </div>

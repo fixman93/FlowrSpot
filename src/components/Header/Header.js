@@ -21,7 +21,7 @@ import {
 } from 'reactstrap'
 import './Header.css'
 
-class Header extends Component {
+export class Header extends Component {
 
   componentDidMount = async () => {
     let auth_token = localStorage.getItem('auth_token')
